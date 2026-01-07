@@ -9,31 +9,31 @@ def send(payload):
 def control_panel():
 
     embed = {
-        "title": "⚡ FREAKY NATION // COMMAND CENTER",
+        "title": "🔷 FREAKY NATION — GAMER HUB",
         "description": (
-            "**WELCOME TO THE ARENA**\n"
-            "━━━━━━━━━━━━━━━━━━\n\n"
-            "🕹️ **Server Owner**\n"
-            "👑 **freaky Pookie**\n\n"
-            "🛡️ **Admins**\n"
-            "• Depressed Admin\n\n"
-            "⚔️ **Elite Members**\n"
-            "• Depressed freak\n\n"
-            "━━━━━━━━━━━━━━━━━━\n"
-            "**Hardcore Gamer • Anime • Freaky**"
+            "```ansi\n"
+            "\u001b[1;36mWELCOME TO THE BATTLEFIELD\u001b[0m\n"
+            "```\n"
+            "**━━━━━━━━━━━━━━━━━━━━━━**\n\n"
+            "👑 **SERVER OWNER**\n"
+            "> **freaky Pookie**\n\n"
+            "🛡️ **ADMIN CORE**\n"
+            "> Depressed Admin\n\n"
+            "⚔️ **ELITE OPERATORS**\n"
+            "> Depressed freak\n\n"
+            "**━━━━━━━━━━━━━━━━━━━━━━**\n"
+            "🎮 *Hardcore Gamer • Anime • Freaky*\n\n"
+            "🟦 **SYSTEM STATUS:** `ONLINE`"
         ),
-        "color": 0x00E5FF,
-        "thumbnail": {
-            "url": "https://i.imgur.com/9Xnt8YJ.png"
-        },
+        "color": 0x00C8FF,
         "footer": {
-            "text": "FREAKY SYSTEM ONLINE"
+            "text": "FREAKY SYSTEM — LIVE CONTROL"
         }
     }
 
     payload = {
         "username": "FREAKY SYSTEM",
-        "avatar_url": "https://i.imgur.com/1X4Yk8P.png",
+        "avatar_url": "https://cdn.discordapp.com/attachments/1137710049365461033/1210223244771586048/freaky_core.png",
         "embeds": [embed],
         "components": [
             {
@@ -41,13 +41,13 @@ def control_panel():
                 "components": [
                     {
                         "type": 2,
-                        "label": "📜 RULES",
+                        "label": "📜 RULEBOOK",
                         "style": 1,
                         "custom_id": "rules"
                     },
                     {
                         "type": 2,
-                        "label": "🔥 JOIN THE ARENA",
+                        "label": "🔥 ENTER ARENA",
                         "style": 3,
                         "custom_id": "join"
                     },
