@@ -1,29 +1,39 @@
-import os
-import requests
-from datetime import datetime
+import os, requests
 
 WEBHOOK = os.getenv("WEBHOOK_URL")
-MODE = os.getenv("MODE", "PANEL")
 
 def send(payload):
     r = requests.post(WEBHOOK, json=payload)
     print("Status:", r.status_code)
 
-def admin_panel():
+def control_panel():
+
     embed = {
-        "title": "🎮 FREAKY NATION CONTROL PANEL",
-        "description": "**Welcome to the arena.**\n\nUse the buttons below.",
-        "color": 0x00eaff,
-        "fields": [
-            {"name": "👑 Owner", "value": "freaky Pookie", "inline": False},
-            {"name": "🛡 Admins", "value": "Depressed Admin", "inline": False},
-            {"name": "⚔ Elite Members", "value": "Depressed freak", "inline": False}
-        ],
-        "footer": {"text": "Hardcore Gamer • Anime • Freaky"}
+        "title": "⚡ FREAKY NATION // COMMAND CENTER",
+        "description": (
+            "**WELCOME TO THE ARENA**\n"
+            "━━━━━━━━━━━━━━━━━━\n\n"
+            "🕹️ **Server Owner**\n"
+            "👑 **freaky Pookie**\n\n"
+            "🛡️ **Admins**\n"
+            "• Depressed Admin\n\n"
+            "⚔️ **Elite Members**\n"
+            "• Depressed freak\n\n"
+            "━━━━━━━━━━━━━━━━━━\n"
+            "**Hardcore Gamer • Anime • Freaky**"
+        ),
+        "color": 0x00E5FF,
+        "thumbnail": {
+            "url": "https://i.imgur.com/9Xnt8YJ.png"
+        },
+        "footer": {
+            "text": "FREAKY SYSTEM ONLINE"
+        }
     }
 
     payload = {
         "username": "FREAKY SYSTEM",
+        "avatar_url": "https://i.imgur.com/1X4Yk8P.png",
         "embeds": [embed],
         "components": [
             {
@@ -31,15 +41,21 @@ def admin_panel():
                 "components": [
                     {
                         "type": 2,
-                        "label": "📜 Server Rules",
+                        "label": "📜 RULES",
                         "style": 1,
-                        "custom_id": "rules_btn"
+                        "custom_id": "rules"
                     },
                     {
                         "type": 2,
-                        "label": "🔥 Join the Arena",
+                        "label": "🔥 JOIN THE ARENA",
                         "style": 3,
-                        "custom_id": "join_btn"
+                        "custom_id": "join"
+                    },
+                    {
+                        "type": 2,
+                        "label": "🎯 START MISSION",
+                        "style": 2,
+                        "custom_id": "mission"
                     }
                 ]
             }
@@ -49,4 +65,4 @@ def admin_panel():
     send(payload)
 
 if __name__ == "__main__":
-    admin_panel()
+    control_panel()
