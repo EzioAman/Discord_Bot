@@ -17,12 +17,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Install Chrome
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y chromium-browser chromium-chromedriver
-
-      - name: Render & Send HUD
+      - name: Send Test GIF
         env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: python main.py
