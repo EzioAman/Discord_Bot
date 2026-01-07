@@ -14,15 +14,15 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install Python packages
+      - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Install Chromium
+      - name: Install Chrome
         run: |
           sudo apt-get update
           sudo apt-get install -y chromium-browser chromium-chromedriver
 
-      - name: Render HUD & Send to Discord
+      - name: Render & Send HUD
         env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: python main.py
