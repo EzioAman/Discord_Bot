@@ -2,9 +2,9 @@ name: Freaky Automation
 
 on:
   schedule:
-    - cron: "0 * * * *"   # every hour hype
-    - cron: "30 6 * * *"  # daily rules 12:00 IST
-    - cron: "30 11 * * *" # daily staff 17:00 IST
+    - cron: "0 * * * *"   # Hourly hype
+    - cron: "30 6 * * *"  # Daily rules (12:00 IST)
+    - cron: "30 11 * * *" # Daily staff (17:00 IST)
   workflow_dispatch:
 
 jobs:
