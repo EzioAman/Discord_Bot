@@ -1,78 +1,90 @@
 import os
+import subprocess
 from PIL import Image, ImageDraw, ImageFont
 import requests
 
 WEBHOOK = os.getenv("WEBHOOK_URL")
 
 WIDTH, HEIGHT = 900, 550
+VIDEO = "assets/Freaky_nation_GIF.mov"
+GIF_BG = "bg.gif"
+FINAL = "final.gif"
 
 
-def build_hud():
-    img = Image.new("RGBA", (WIDTH, HEIGHT), (10, 12, 18, 255))
+def convert_video_to_gif():
+    subprocess.run([
+        "ffmpeg", "-y", "-i", VIDEO,
+        "-vf", "scale=900:300:flags=lanczos",
+        GIF_BG
+    ], check=True)
+
+
+def build_hud_overlay():
+    img = Image.new("RGBA", (WIDTH, HEIGHT), (10, 12, 18, 230))
     draw = ImageDraw.Draw(img)
 
-    title = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 36)
+    title = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 34)
     body  = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 22)
     small = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 18)
 
-    # Frame
     draw.rectangle([0, 0, WIDTH, HEIGHT], outline=(0,255,255,255), width=4)
+    draw.text((30, 20), "⚡ FREAKY NATION — COMMAND CENTER", (0,255,255), font=title)
+    draw.rectangle([30, 65, 520, 100], fill=(15, 20, 30, 200))
+    draw.text((50, 72), "[  SYSTEM CORE ONLINE  ]", (120,200,255), font=body)
 
-    # Header
-    draw.text((40, 20), "⚡ FREAKY NATION — COMMAND CENTER", (0,255,255), font=title)
-    draw.rectangle([40, 65, 520, 100], fill=(15, 20, 30, 220))
-    draw.text((60, 72), "[  SYSTEM CORE ONLINE  ]", (120,200,255), font=body)
-
-    # Welcome
-    draw.text((40, 120), "🔷 WELCOME TO THE BATTLEFIELD", (200,255,255), font=body)
-    draw.line((40, 150, 520, 150), fill=(120,255,255), width=2)
-
-    # Personnel
-    y = 170
-    personnel = [
-        ("👑  COMMANDER", "freaky Pookie"),
-        ("🛡  ADMIN CORE", "Depressed Admin"),
-        ("⚔  ELITE OPERATORS", "Depressed freak")
-    ]
-
-    for role, name in personnel:
-        draw.text((40, y), role, (255,255,255), font=body)
-        draw.text((280, y), name, (180,220,255), font=body)
-        y += 40
-
-    # Divider
-    y += 10
-    draw.line((40, y, 520, y), fill=(120,255,255), width=2)
-
-    # Status
-    y += 20
-    stats = [
-        "🎮 MODE : HARDCORE GAMER",
-        "🧬 STYLE : ANIME × FREAK",
-        "🟦 STATUS : LIVE",
+    y = 120
+    lines = [
+        "▣ WELCOME TO THE BATTLEFIELD",
+        "",
+        "👑 COMMANDER        freaky Pookie",
+        "🛡 ADMIN CORE       Depressed Admin",
+        "⚔ ELITE OPERATORS   Depressed freak",
+        "",
+        "MODE   : HARDCORE GAMER",
+        "STYLE  : ANIME × FREAK",
+        "STATUS : LIVE",
         "",
         "🌀 The system watches every move...",
         "FREAKY SYSTEM • NEURAL INTERFACE ACTIVE"
     ]
 
-    for line in stats:
+    for line in lines:
         draw.text((40, y), line, (200,255,255), font=small)
         y += 28
 
-    path = "hud.png"
-    img.save(path)
-    return path
+    return img
 
 
-def post_to_discord(image_path):
-    with open(image_path, "rb") as f:
+def merge_gif_and_hud():
+    from PIL import ImageSequence
+
+    overlay = build_hud_overlay()
+    frames = []
+
+    bg = Image.open(GIF_BG)
+    for frame in ImageSequence.Iterator(bg):
+        canvas = Image.new("RGBA", (WIDTH, HEIGHT + 300), (0,0,0,255))
+        canvas.paste(overlay, (0,0))
+        canvas.paste(frame.convert("RGBA"), (0, HEIGHT))
+        frames.append(canvas)
+
+    frames[0].save(
+        FINAL, save_all=True,
+        append_images=frames[1:],
+        loop=0, duration=80
+    )
+
+
+def post_to_discord():
+    with open(FINAL, "rb") as f:
         requests.post(
             WEBHOOK,
-            files={"file": ("hud.png", f)},
-            data={"content": "🧠 **FREAKY SYSTEM ONLINE**"}
+            files={"file": ("freaky.gif", f)},
+            data={"content": "🧠 **FREAKY SYSTEM ONLINE** — Welcome to the arena."}
         )
 
 
 if __name__ == "__main__":
-    hud = build_hud()
-    post_to_discord(hud)
+    convert_video_to_gif()
+    merge_gif_and_hud()
+    post_to_discord()
