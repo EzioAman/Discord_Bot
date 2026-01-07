@@ -16,20 +16,25 @@ def convert_video_to_gif():
 
 def post_to_discord():
     message = (
-        "🧠 **FREAKY SYSTEM ONLINE**\n\n"
-        "⚡ **FREAKY NATION — COMMAND CENTER**\n"
-        "`[ SYSTEM CORE ONLINE ]`\n\n"
-        "▣ **WELCOME TO THE BATTLEFIELD**\n\n"
-        "👑 **COMMANDER** → freaky Pookie\n"
-        "🛡 **ADMIN CORE** → Depressed Admin\n"
-        "⚔ **ELITE OPERATORS** → Depressed freak\n\n"
-        "**MODE** : Hardcore Gamer\n"
-        "**STYLE** : Anime × Freak\n"
-        "**STATUS** : LIVE\n\n"
-        "🌀 *The system watches every move...*\n"
-        "**FREAKY SYSTEM • NEURAL INTERFACE ACTIVE**"
+    "🧠 **FREAKY SYSTEM ONLINE**\n\n"
+    "```ansi\n"
+    "\u001b[1;36m⚡ FREAKY NATION — COMMAND CENTER\u001b[0m\n"
+    "\u001b[2;36m[ SYSTEM CORE ONLINE ]\u001b[0m\n\n"
+    "\u001b[1;37m▣ WELCOME TO THE BATTLEFIELD\u001b[0m\n\n"
+    "\u001b[1;33m👑 COMMANDER      \u001b[0mfreaky Pookie\n"
+    "\u001b[1;34m🛡 ADMIN CORE     \u001b[0mDepressed Admin\n"
+    "\u001b[1;31m⚔ ELITE OPERATORS \u001b[0mDepressed freak\n\n"
+    "\u001b[1;32mMODE  \u001b[0m: Hardcore Gamer\n"
+    "\u001b[1;35mSTYLE \u001b[0m: Anime × Freak\n"
+    "\u001b[1;36mSTATUS\u001b[0m: LIVE\n\n"
+    "\u001b[2;36mNeural grid synchronized...\u001b[0m\n"
+    "\u001b[2;36mBattle authority confirmed.\u001b[0m\n"
+    "\u001b[2;36mReality interface engaged.\u001b[0m\n"
+    "```\n"
+    "🌀 *The system watches every move...*\n"
+    "**FREAKY SYSTEM • NEURAL INTERFACE ACTIVE**"
     )
-
+    
     with open(GIF_OUT, "rb") as f:
         requests.post(
             WEBHOOK,
