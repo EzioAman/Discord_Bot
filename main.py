@@ -7,44 +7,24 @@ def send(payload):
     print("Status:", r.status_code)
 
 def control_panel():
-
     embed = {
-        "title": "⚡ FREAKY NATION :: NEURAL COMMAND",
+        "title": "⚡ FREAKY NATION",
         "description": (
-            "```ansi\n"
-            "\u001b[1;36m▓▓▓▓▓ CORE STATUS : ONLINE ▓▓▓▓▓\u001b[0m\n"
-            "\u001b[2;35mNEURAL LINK ESTABLISHED // SYNC 100%\u001b[0m\n"
-            "```"
-            "🧬 **WELCOME TO THE ARENA**\n\n"
-
-            "━━━━━━━━━━━━━━━━━━━━━━\n"
-            "👑 **COMMANDER**\n"
-            "➤ **freaky Pookie**\n\n"
-
-            "🛡️ **ADMIN CORE**\n"
-            "➤ Depressed Admin\n\n"
-
-            "⚔️ **ELITE OPERATORS**\n"
-            "➤ Depressed freak\n\n"
-
-            "━━━━━━━━━━━━━━━━━━━━━━\n"
-            "🎮 **MODE:** `HARDCORE`\n"
-            "🧠 **STYLE:** `ANIME × FREAK`\n"
-            "🟦 **STATUS:** `LIVE`\n\n"
-
-            "💠 _Neural grid pulsing..._\n"
-            "⚠️ _Battle authority confirmed._\n"
-            "🧬 _Reality interface engaged._"
+            "**WELCOME TO THE BATTLEFIELD**\n\n"
+            "👑 **Pookie**\n"
+            "🛡️ *Depressed Admin*\n"
+            "⚔️ *Depressed freak*\n\n"
+            "🎮 **Hardcore Gamer**  •  🧠 **Anime**  •  🔥 **Freaky**"
         ),
         "color": 0x00F6FF,
-        "thumbnail": {
-            "url": "https://media.tenor.com/Wn9n4QZC1tYAAAAC/anime-hud.gif"
-        },
         "image": {
             "url": "https://media.tenor.com/1KkZp2-2NfIAAAAC/anime-glitch.gif"
         },
+        "thumbnail": {
+            "url": "https://media.tenor.com/Wn9n4QZC1tYAAAAC/anime-hud.gif"
+        },
         "footer": {
-            "text": "FREAKY SYSTEM • NEURAL INTERFACE ACTIVE"
+            "text": "FREAKY SYSTEM ONLINE"
         }
     }
 
@@ -56,10 +36,9 @@ def control_panel():
             {
                 "type": 1,
                 "components": [
-                    {"type": 2, "label": "⚔ DEPLOY", "style": 3, "custom_id": "deploy"},
-                    {"type": 2, "label": "📜 RULES", "style": 1, "custom_id": "rules"},
-                    {"type": 2, "label": "🧬 PROFILE", "style": 2, "custom_id": "profile"},
-                    {"type": 2, "label": "🔥 ENTER ARENA", "style": 4, "custom_id": "join"}
+                    {"type": 2, "label": "ENTER", "style": 3, "custom_id": "enter"},
+                    {"type": 2, "label": "RULES", "style": 1, "custom_id": "rules"},
+                    {"type": 2, "label": "ROSTER", "style": 2, "custom_id": "roster"}
                 ]
             }
         ]
