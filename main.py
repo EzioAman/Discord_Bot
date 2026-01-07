@@ -9,15 +9,14 @@ def send(payload):
 def control_panel():
 
     embed = {
-        "title": "⚡ 𝙵𝚁𝙴𝙰𝙺𝚈 𝙽𝙰𝚃𝙸𝙾𝙽 — 𝙲𝙾𝙼𝙼𝙰𝙽𝙳 𝙲𝙴𝙽𝚃𝙴𝚁",
+        "title": "⚡ 𝙵𝚁𝙴𝙰𝙺𝚈 𝙽𝙰𝚃𝙸𝙾𝙽 :: 𝙽𝙴𝚄𝚁𝙰𝙻 𝙲𝙾𝙼𝙼𝙰𝙽𝙳",
         "description": (
-            "```fix\n"
-            "[ SYSTEM CORE ONLINE ]\n"
-            "```\n"
-            "**💠 𝚆𝙴𝙻𝙲𝙾𝙼𝙴 𝚃𝙾 𝚃𝙷𝙴 𝙱𝙰𝚃𝚃𝙻𝙴𝙵𝙸𝙴𝙻𝙳**\n\n"
+            "```ansi\n"
+            "\u001b[1;36m[ CORE STATUS : ONLINE ]\u001b[0m\n"
+            "```"
+            "🧬 **𝚆𝙴𝙻𝙲𝙾𝙼𝙴 𝚃𝙾 𝚃𝙷𝙴 𝙰𝚁𝙴𝙽𝙰**\n\n"
 
             "━━━━━━━━━━━━━━━━━━━━━━\n"
-
             "👑 **𝙲𝙾𝙼𝙼𝙰𝙽𝙳𝙴𝚁**\n"
             "▸ **freaky Pookie**\n\n"
 
@@ -32,14 +31,15 @@ def control_panel():
             "🧠 **STYLE:** Anime × Freak\n"
             "🟦 **STATUS:** `LIVE`\n\n"
 
-            "🌀 *The system watches every move…*"
+            "💠 _Neural systems synchronized..._\n"
+            "⚠️ _Battlefield authority confirmed._"
         ),
-        "color": 0x00E5FF,
+        "color": 0x00F6FF,
         "thumbnail": {
-            "url": "https://media.tenor.com/2roX3uxz_68AAAAC/anime-power.gif"
+            "url": "https://media.tenor.com/yoQSSzA8oKcAAAAC/anime-cyber.gif"
         },
         "image": {
-            "url": "https://media.tenor.com/f9XK8C5ZzE4AAAAC/anime-glitch.gif"
+            "url": "https://media.tenor.com/Kf6kZ0g6A6wAAAAC/anime-glitch.gif"
         },
         "footer": {
             "text": "FREAKY SYSTEM • NEURAL INTERFACE ACTIVE"
