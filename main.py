@@ -9,37 +9,39 @@ def send(payload):
 def control_panel():
 
     embed = {
-        "title": "⚡ 𝙵𝚁𝙴𝙰𝙺𝚈 𝙽𝙰𝚃𝙸𝙾𝙽 :: 𝙽𝙴𝚄𝚁𝙰𝙻 𝙲𝙾𝙼𝙼𝙰𝙽𝙳",
+        "title": "⚡ FREAKY NATION :: NEURAL COMMAND",
         "description": (
             "```ansi\n"
-            "\u001b[1;36m[ CORE STATUS : ONLINE ]\u001b[0m\n"
+            "\u001b[1;36m▓▓▓▓▓ CORE STATUS : ONLINE ▓▓▓▓▓\u001b[0m\n"
+            "\u001b[2;35mNEURAL LINK ESTABLISHED // SYNC 100%\u001b[0m\n"
             "```"
-            "🧬 **𝚆𝙴𝙻𝙲𝙾𝙼𝙴 𝚃𝙾 𝚃𝙷𝙴 𝙰𝚁𝙴𝙽𝙰**\n\n"
+            "🧬 **WELCOME TO THE ARENA**\n\n"
 
             "━━━━━━━━━━━━━━━━━━━━━━\n"
-            "👑 **𝙲𝙾𝙼𝙼𝙰𝙽𝙳𝙴𝚁**\n"
-            "▸ **freaky Pookie**\n\n"
+            "👑 **COMMANDER**\n"
+            "➤ **freaky Pookie**\n\n"
 
-            "🛡️ **𝙰𝙳𝙼𝙸𝙽 𝙲𝙾𝚁𝙴**\n"
-            "▸ Depressed Admin\n\n"
+            "🛡️ **ADMIN CORE**\n"
+            "➤ Depressed Admin\n\n"
 
-            "⚔️ **𝙴𝙻𝙸𝚃𝙴 𝙾𝙿𝙴𝚁𝙰𝚃𝙾𝚁𝚂**\n"
-            "▸ Depressed freak\n\n"
+            "⚔️ **ELITE OPERATORS**\n"
+            "➤ Depressed freak\n\n"
 
             "━━━━━━━━━━━━━━━━━━━━━━\n"
-            "🎮 **MODE:** Hardcore Gamer\n"
-            "🧠 **STYLE:** Anime × Freak\n"
+            "🎮 **MODE:** `HARDCORE`\n"
+            "🧠 **STYLE:** `ANIME × FREAK`\n"
             "🟦 **STATUS:** `LIVE`\n\n"
 
-            "💠 _Neural systems synchronized..._\n"
-            "⚠️ _Battlefield authority confirmed._"
+            "💠 _Neural grid pulsing..._\n"
+            "⚠️ _Battle authority confirmed._\n"
+            "🧬 _Reality interface engaged._"
         ),
         "color": 0x00F6FF,
         "thumbnail": {
-            "url": "https://media.tenor.com/yoQSSzA8oKcAAAAC/anime-cyber.gif"
+            "url": "https://media.tenor.com/Wn9n4QZC1tYAAAAC/anime-hud.gif"
         },
         "image": {
-            "url": "https://media.tenor.com/Kf6kZ0g6A6wAAAAC/anime-glitch.gif"
+            "url": "https://media.tenor.com/1KkZp2-2NfIAAAAC/anime-glitch.gif"
         },
         "footer": {
             "text": "FREAKY SYSTEM • NEURAL INTERFACE ACTIVE"
@@ -55,8 +57,8 @@ def control_panel():
                 "type": 1,
                 "components": [
                     {"type": 2, "label": "⚔ DEPLOY", "style": 3, "custom_id": "deploy"},
-                    {"type": 2, "label": "📜 CODEX", "style": 1, "custom_id": "rules"},
-                    {"type": 2, "label": "🧬 PROFILE", "style": 2, "custom_id": "stats"},
+                    {"type": 2, "label": "📜 RULES", "style": 1, "custom_id": "rules"},
+                    {"type": 2, "label": "🧬 PROFILE", "style": 2, "custom_id": "profile"},
                     {"type": 2, "label": "🔥 ENTER ARENA", "style": 4, "custom_id": "join"}
                 ]
             }
