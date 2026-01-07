@@ -1,23 +1,29 @@
 name: Freaky Automation
 
 on:
+  schedule:
+    - cron: "0 * * * *"       # Hourly Hype
+    - cron: "0 5 * * *"       # Daily Challenge (10:30 IST)
+    - cron: "0 6 * * *"       # Rules Panel (11:30 IST)
+    - cron: "0 7 * * *"       # Staff Panel (12:30 IST)
   workflow_dispatch:
 
 jobs:
-  test:
+  run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
-      - name: Install deps
-        run: pip install requests
-
-      - name: Run bot
+      - run: pip install requests
+      - name: Run automation
         env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          MODE: |
+            ${{ github.event.schedule == '0 * * * *' && 'HYPE' ||
+                github.event.schedule == '0 5 * * *' && 'DAILY' ||
+                github.event.schedule == '0 6 * * *' && 'RULES' ||
+                github.event.schedule == '0 7 * * *' && 'STAFF' ||
+                'HYPE' }}
         run: python main.py
