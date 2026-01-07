@@ -1,82 +1,78 @@
-import os, subprocess, requests
+import os
 from PIL import Image, ImageDraw, ImageFont
+import requests
 
 WEBHOOK = os.getenv("WEBHOOK_URL")
 
 WIDTH, HEIGHT = 900, 550
 
-ASSET_VIDEO = "assets/Freaky_nation_GIF.mov"
-HUD_IMAGE = "hud.png"
-VIDEO_OUT = "final.mp4"
-GIF_OUT = "final.gif"
 
 def build_hud():
-    img = Image.new("RGBA", (WIDTH, HEIGHT), (0,0,0,0))
+    img = Image.new("RGBA", (WIDTH, HEIGHT), (10, 12, 18, 255))
     draw = ImageDraw.Draw(img)
 
     title = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 36)
-    body = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 22)
+    body  = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 22)
+    small = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 18)
 
-    draw.rectangle([0,0,WIDTH,HEIGHT], outline=(0,255,255,255), width=4)
-    draw.text((40,20), "⚡ FREAKY NATION — NEURAL COMMAND", (0,255,255), font=title)
+    # Frame
+    draw.rectangle([0, 0, WIDTH, HEIGHT], outline=(0,255,255,255), width=4)
 
-    y = 100
-    lines = [
-        "[ CORE STATUS : ONLINE ]",
-        "",
-        "👑 COMMANDER   freaky Pookie",
-        "🛡 ADMIN CORE  Depressed Admin",
-        "⚔ ELITE OPS   Depressed freak",
-        "",
-        "MODE   : HARDCORE GAMER",
-        "STYLE  : ANIME x FREAK",
-        "STATUS : LIVE",
-        "",
-        "Neural grid synchronized...",
-        "Battle authority confirmed.",
-        "Reality interface engaged."
+    # Header
+    draw.text((40, 20), "⚡ FREAKY NATION — COMMAND CENTER", (0,255,255), font=title)
+    draw.rectangle([40, 65, 520, 100], fill=(15, 20, 30, 220))
+    draw.text((60, 72), "[  SYSTEM CORE ONLINE  ]", (120,200,255), font=body)
+
+    # Welcome
+    draw.text((40, 120), "🔷 WELCOME TO THE BATTLEFIELD", (200,255,255), font=body)
+    draw.line((40, 150, 520, 150), fill=(120,255,255), width=2)
+
+    # Personnel
+    y = 170
+    personnel = [
+        ("👑  COMMANDER", "freaky Pookie"),
+        ("🛡  ADMIN CORE", "Depressed Admin"),
+        ("⚔  ELITE OPERATORS", "Depressed freak")
     ]
 
-    for line in lines:
-        draw.text((60, y), line, (200,255,255), font=body)
-        y += 30
+    for role, name in personnel:
+        draw.text((40, y), role, (255,255,255), font=body)
+        draw.text((280, y), name, (180,220,255), font=body)
+        y += 40
 
-    img.save(HUD_IMAGE)
+    # Divider
+    y += 10
+    draw.line((40, y, 520, y), fill=(120,255,255), width=2)
 
-def compose_video():
-    subprocess.run([
-        "ffmpeg","-y",
-        "-i",ASSET_VIDEO,
-        "-i",HUD_IMAGE,
-        "-filter_complex","[0:v]scale=900:550[bg];[bg][1:v]overlay=0:0",
-        "-pix_fmt","yuv420p",
-        VIDEO_OUT
-    ], check=True)
+    # Status
+    y += 20
+    stats = [
+        "🎮 MODE : HARDCORE GAMER",
+        "🧬 STYLE : ANIME × FREAK",
+        "🟦 STATUS : LIVE",
+        "",
+        "🌀 The system watches every move...",
+        "FREAKY SYSTEM • NEURAL INTERFACE ACTIVE"
+    ]
 
-def to_gif():
-    subprocess.run([
-        "ffmpeg","-y",
-        "-i",VIDEO_OUT,
-        "-vf","fps=15,scale=900:-1:flags=lanczos",
-        GIF_OUT
-    ], check=True)
+    for line in stats:
+        draw.text((40, y), line, (200,255,255), font=small)
+        y += 28
 
-def post():
-    with open(GIF_OUT,"rb") as f:
+    path = "hud.png"
+    img.save(path)
+    return path
+
+
+def post_to_discord(image_path):
+    with open(image_path, "rb") as f:
         requests.post(
             WEBHOOK,
-            files={"file":("freaky.gif",f)},
-            data={
-                "content":
-                "🧠 **FREAKY SYSTEM ONLINE**\n"
-                "Neural Command Center initialized.\n"
-                "All subsystems synchronized.\n\n"
-                "⚡ Welcome to the battlefield."
-            }
+            files={"file": ("hud.png", f)},
+            data={"content": "🧠 **FREAKY SYSTEM ONLINE**"}
         )
 
+
 if __name__ == "__main__":
-    build_hud()
-    compose_video()
-    to_gif()
-    post()
+    hud = build_hud()
+    post_to_discord(hud)
