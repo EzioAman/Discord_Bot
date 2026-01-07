@@ -2,15 +2,15 @@ name: Freaky Automation
 
 on:
   schedule:
-    - cron: "0 * * * *"      # Every hour (HYPE)
-    - cron: "30 6 * * *"     # Daily RULES 12:00 IST
-    - cron: "30 11 * * *"    # Daily STAFF 17:00 IST
+    - cron: "0 * * * *"      # Every hour HYPE
+    - cron: "30 6 * * *"     # 12:00 IST RULES
+    - cron: "30 11 * * *"    # 17:00 IST STAFF
   workflow_dispatch:
 
 jobs:
 
   hype:
-    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 * * * *'
+    if: github.event_name != 'schedule' || github.event.schedule == '0 * * * *'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,7 +24,7 @@ jobs:
         run: python main.py
 
   rules:
-    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '30 6 * * *'
+    if: github.event_name != 'schedule' || github.event.schedule == '30 6 * * *'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -38,7 +38,7 @@ jobs:
         run: python main.py
 
   staff:
-    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '30 11 * * *'
+    if: github.event_name != 'schedule' || github.event.schedule == '30 11 * * *'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
