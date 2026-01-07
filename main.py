@@ -1,64 +1,52 @@
-import requests
-import os
+name: Freaky Automation
 
-WEBHOOK = os.environ["WEBHOOK_URL"]
+on:
+  schedule:
+    - cron: "0 * * * *"      # Every hour HYPE
+    - cron: "30 6 * * *"     # 12:00 IST RULES
+    - cron: "30 11 * * *"    # 17:00 IST STAFF
+  workflow_dispatch:
 
-def send(payload):
-    requests.post(WEBHOOK, json=payload)
+jobs:
 
-def hype():
-    send({
-        "username": "FREAKY FEED",
-        "content": "🔥 Drop your best clip. Only FREAKY."
-    })
+  hype:
+    if: github.event_name != 'schedule' || github.event.schedule == '0 * * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          MODE: HYPE
+        run: python main.py
 
-def rules():
-    send({
-        "username": "FREAKY FEED",
-        "embeds": [{
-            "title": "🎮 FREAKY NATION RULEBOOK",
-            "description": (
-                "⚡ **WELCOME TO THE ARENA** ⚡\n\n"
-                "🌀 Respect the grind\n"
-                "🚫 No toxic spam\n"
-                "💎 Keep the vibes freaky\n"
-                "🧠 No leaks • No scams\n"
-                "👑 Mods have final say\n\n"
-                "🔥 Break the code → Get deleted"
-            ),
-            "color": 5814784,
-            "image": {"url": "https://media.giphy.com/media/QpVUMRUJGokfqXyfa1/giphy.gif"},
-            "footer": {"text": "Enter. Perform. Be FREAKY."}
-        }]
-    })
+  rules:
+    if: github.event_name != 'schedule' || github.event.schedule == '30 6 * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          MODE: RULES
+        run: python main.py
 
-def staff():
-    send({
-        "username": "FREAKY FEED",
-        "embeds": [{
-            "title": "👑 FREAKY COMMAND CENTER",
-            "description": (
-                "💠 **OWNER**\n"
-                "💎 freaky Pookie\n\n"
-                "🧠 **DEPRESSED ADMIN**\n"
-                "⚔️ freaky Chomu\n\n"
-                "🔥 **DEPRESSED FREAKS**\n"
-                "🌀 freaky Ghost\n"
-                "🌀 freaky Havsi\n"
-                "🌀 freaky Samosa\n"
-                "🌀 freaky ur anus is..."
-            ),
-            "color": 5814784,
-            "image": {"url": "https://media.giphy.com/media/xTiTnBMEz7zAKs57LG/giphy.gif"},
-            "footer": {"text": "Only the Freakiest survive."}
-        }]
-    })
-
-MODE = os.environ["MODE"]
-
-if MODE == "HYPE":
-    hype()
-elif MODE == "RULES":
-    rules()
-elif MODE == "STAFF":
-    staff()
+  staff:
+    if: github.event_name != 'schedule' || github.event.schedule == '30 11 * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          MODE: STAFF
+        run: python main.py
