@@ -1,10 +1,11 @@
 import requests
 import os
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 WEBHOOK = os.environ["WEBHOOK_URL"]
-
 NEON = 5814784
+
+IST = timezone(timedelta(hours=5, minutes=30))
 
 def send(payload):
     requests.post(WEBHOOK, json=payload)
@@ -26,15 +27,6 @@ def rules_panel():
             "color": NEON,
             "image": {"url": "https://media.giphy.com/media/QpVUMRUJGokfqXyfa1/giphy.gif"},
             "footer": {"text": "Enter. Perform. Be FREAKY."}
-        }],
-        "components": [{
-            "type": 1,
-            "components": [{
-                "type": 2,
-                "style": 5,
-                "label": "📜 VIEW FULL RULES",
-                "url": "https://discord.com/channels/@me"
-            }]
         }]
     }
     send(payload)
@@ -63,17 +55,18 @@ def staff_panel():
     send(payload)
 
 def hype_message():
-    now = datetime.now().strftime("%A %I:%M %p")
+    now = datetime.now(IST).strftime("%A %I:%M %p")
     send({
         "username": "FREAKY FEED",
         "content": f"🔥 {now} — Drop your best clip. Only FREAKY."
     })
 
-hour = datetime.now().hour
+now = datetime.now(IST)
+hour = now.hour
 
-if hour == 12:
+if hour == 23:   # 11 PM IST → Rules Panel
     rules_panel()
-elif hour == 18:
+elif hour == 17: # 5 PM IST → Staff Panel
     staff_panel()
 else:
     hype_message()
