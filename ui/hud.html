@@ -2,79 +2,126 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>FREAKY HUD</title>
+<title>Freaky Nation</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
 body {
   margin: 0;
-  background: radial-gradient(circle at top, #050b16, #02040a);
-  font-family: 'Orbitron', sans-serif;
-  color: #00f7ff;
-}
-
-.container {
   width: 900px;
-  padding: 40px;
-  border-left: 6px solid #00f7ff;
-  box-shadow: 0 0 40px rgba(0,255,255,0.4);
+  height: 550px;
+  overflow: hidden;
+  font-family: 'Orbitron', sans-serif;
+  color: #eafaff;
 }
 
-.title {
-  font-size: 34px;
+/* BACKGROUND LAYER */
+#bg {
+  position: absolute;
+  inset: 0;
+  background:
+    url("https://i.imgur.com/0Q9Q0Q0.jpg") center/cover no-repeat,
+    radial-gradient(circle at top, #1b0033, #050014);
+  filter: brightness(0.8);
+}
+
+/* PETALS */
+.petal {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: url("https://i.imgur.com/Rm0KX5E.png") center/contain no-repeat;
+  animation: fall linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes fall {
+  from { transform: translateY(-50px) rotate(0deg); }
+  to   { transform: translateY(600px) rotate(360deg); }
+}
+
+/* FRAME */
+#frame {
+  position: absolute;
+  inset: 12px;
+  border: 3px solid #66f2ff;
+  box-shadow: 0 0 30px rgba(102,242,255,0.8);
+  pointer-events: none;
+}
+
+/* HUD PANEL */
+#hud {
+  position: absolute;
+  inset: 40px;
+  background: rgba(5,10,30,0.55);
+  border: 1px solid #66f2ff;
+  box-shadow: 0 0 25px rgba(102,242,255,0.5);
+  padding: 28px;
+}
+
+/* TITLE */
+#title {
+  font-size: 30px;
   letter-spacing: 2px;
+  color: #66f2ff;
+  text-shadow: 0 0 10px #66f2ff;
 }
 
-.status {
-  margin-top: 20px;
-  background: #000;
-  padding: 14px;
-  border: 1px solid #00f7ff;
-  animation: glow 2s infinite alternate;
+/* GLITCH PULSE */
+.glow {
+  animation: glow 2s ease-in-out infinite;
 }
 
 @keyframes glow {
-  from { box-shadow: 0 0 10px #00f7ff; }
-  to   { box-shadow: 0 0 30px #00f7ff; }
+  0%,100% { text-shadow: 0 0 8px #66f2ff; }
+  50%     { text-shadow: 0 0 20px #ff9de2; }
 }
 
-.section {
-  margin-top: 25px;
-}
-
-.label {
-  color: #ff00ff;
-}
+.line { margin-top: 14px; }
+.label { color: #ff9de2; }
 </style>
 </head>
 
 <body>
-<div class="container">
-  <div class="title">⚡ FREAKY NATION — NEURAL COMMAND</div>
 
-  <div class="status">CORE STATUS : ONLINE — NEURAL LINK 100%</div>
+<div id="bg"></div>
 
-  <div class="section">
-    <div class="label">COMMANDER</div>
-    freaky Pookie
+<!-- falling petals -->
+<script>
+for(let i=0;i<30;i++){
+  let p=document.createElement("div");
+  p.className="petal";
+  p.style.left=Math.random()*900+"px";
+  p.style.animationDuration=4+Math.random()*6+"s";
+  p.style.animationDelay=Math.random()*5+"s";
+  document.body.appendChild(p);
+}
+</script>
+
+<div id="frame"></div>
+
+<div id="hud">
+  <div id="title" class="glow">⚡ FREAKY NATION — SYSTEM PANEL</div>
+
+  <div class="line">[ CORE STATUS : ONLINE ]</div>
+
+  <div class="line"><span class="label">COMMANDER</span> — freaky Pookie</div>
+  <div class="line"><span class="label">ADMIN CORE</span> — Depressed Admin</div>
+  <div class="line"><span class="label">ELITE OPS</span> — Depressed freak</div>
+
+  <div class="line">
+    MODE : HARDCORE GAMER<br>
+    STYLE : ANIME × FREAK<br>
+    STATUS : LIVE
   </div>
 
-  <div class="section">
-    <div class="label">ADMIN CORE</div>
-    Depressed Admin
-  </div>
-
-  <div class="section">
-    <div class="label">ELITE OPERATORS</div>
-    Depressed freak
-  </div>
-
-  <div class="section">
-    MODE: HARDCORE<br>
-    STYLE: ANIME × FREAK<br>
-    STATUS: LIVE
+  <div class="line">
+    Neural grid synchronized...<br>
+    Battle authority confirmed.<br>
+    Reality interface engaged.
   </div>
 </div>
+
 </body>
 </html>
