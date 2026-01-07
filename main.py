@@ -1,7 +1,5 @@
-import os
-import subprocess
+import os, subprocess, requests
 from PIL import Image, ImageDraw, ImageFont
-import requests
 
 WEBHOOK = os.getenv("WEBHOOK_URL")
 
@@ -9,18 +7,18 @@ WIDTH, HEIGHT = 900, 550
 
 ASSET_VIDEO = "assets/Freaky_nation_GIF.mov"
 HUD_IMAGE = "hud.png"
-OUTPUT_VIDEO = "final.mp4"
+VIDEO_OUT = "final.mp4"
+GIF_OUT = "final.gif"
 
 def build_hud():
-    img = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
+    img = Image.new("RGBA", (WIDTH, HEIGHT), (0,0,0,0))
     draw = ImageDraw.Draw(img)
 
-    font_title = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 36)
-    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 22)
+    title = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 36)
+    body = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 22)
 
-    draw.rectangle([0, 0, WIDTH, HEIGHT], outline=(0,255,255,255), width=4)
-
-    draw.text((40, 25), "⚡ FREAKY NATION — NEURAL COMMAND", fill=(0,255,255,255), font=font_title)
+    draw.rectangle([0,0,WIDTH,HEIGHT], outline=(0,255,255,255), width=4)
+    draw.text((40,20), "⚡ FREAKY NATION — NEURAL COMMAND", (0,255,255), font=title)
 
     y = 100
     lines = [
@@ -40,33 +38,45 @@ def build_hud():
     ]
 
     for line in lines:
-        draw.text((60, y), line, fill=(200,255,255,255), font=font)
-        y += 32
+        draw.text((60, y), line, (200,255,255), font=body)
+        y += 30
 
     img.save(HUD_IMAGE)
 
-def build_video():
+def compose_video():
     subprocess.run([
-        "ffmpeg", "-y",
-        "-i", ASSET_VIDEO,
-        "-i", HUD_IMAGE,
-        "-filter_complex",
-        "[0:v]scale=900:550[bg];[bg][1:v]overlay=0:0",
-        "-pix_fmt", "yuv420p",
-        OUTPUT_VIDEO
+        "ffmpeg","-y",
+        "-i",ASSET_VIDEO,
+        "-i",HUD_IMAGE,
+        "-filter_complex","[0:v]scale=900:550[bg];[bg][1:v]overlay=0:0",
+        "-pix_fmt","yuv420p",
+        VIDEO_OUT
     ], check=True)
 
-def post_to_discord():
-    with open(OUTPUT_VIDEO, "rb") as f:
-        r = requests.post(
+def to_gif():
+    subprocess.run([
+        "ffmpeg","-y",
+        "-i",VIDEO_OUT,
+        "-vf","fps=15,scale=900:-1:flags=lanczos",
+        GIF_OUT
+    ], check=True)
+
+def post():
+    with open(GIF_OUT,"rb") as f:
+        requests.post(
             WEBHOOK,
-            files={"file": ("freaky.mp4", f)},
-            data={"content": "🧠 **FREAKY SYSTEM ONLINE**"}
+            files={"file":("freaky.gif",f)},
+            data={
+                "content":
+                "🧠 **FREAKY SYSTEM ONLINE**\n"
+                "Neural Command Center initialized.\n"
+                "All subsystems synchronized.\n\n"
+                "⚡ Welcome to the battlefield."
+            }
         )
-        if r.status_code not in [200, 204]:
-            print("Failed:", r.text)
 
 if __name__ == "__main__":
     build_hud()
-    build_video()
-    post_to_discord()
+    compose_video()
+    to_gif()
+    post()
