@@ -3,19 +3,26 @@ import os
 
 BASE = os.path.dirname(__file__)
 
-bg_gif = Image.open(os.path.join(BASE, "assets/test.gif")).convert("RGBA")
-frame = Image.open(os.path.join(BASE, "assets/frame.png")).convert("RGBA")
+gif_path = os.path.join(BASE, "assets/test.gif")
+frame_path = os.path.join(BASE, "assets/frame.png")
+out_path = os.path.join(BASE, "assets/final.gif")
+
+bg_gif = Image.open(gif_path)
+frame = Image.open(frame_path).convert("RGBA")
 
 frames = []
 durations = []
 
-for i, f in enumerate(ImageSequence.Iterator(bg_gif)):
+for f in ImageSequence.Iterator(bg_gif):
     f = f.convert("RGBA")
-    composed = Image.alpha_composite(f, frame)
+
+    # Resize frame to match each frame
+    resized_frame = frame.resize(f.size, Image.LANCZOS)
+
+    composed = Image.alpha_composite(f, resized_frame)
+
     frames.append(composed)
     durations.append(bg_gif.info.get("duration", 100))
-
-out_path = os.path.join(BASE, "assets/final.gif")
 
 frames[0].save(
     out_path,
