@@ -23,7 +23,7 @@ jobs:
         run: python main.py
 
   rules:
-    if: github.event.schedule == '30 6 * * *'
+    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 * * * *'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
