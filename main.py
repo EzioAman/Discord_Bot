@@ -4,8 +4,9 @@ url = os.getenv("WEBHOOK_URL")
 
 payload = {
     "username": "FREAKY FEED",
-    "content": "🧪 Webhook test successful. Freaky system is online."
+    "content": "🧪 Freaky webhook is now LIVE."
 }
 
 r = requests.post(url, json=payload)
-print(r.status_code, r.text)
+print("Status:", r.status_code)
+print("Response:", r.text)
