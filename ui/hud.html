@@ -16,24 +16,24 @@ body {
   color: #eafaff;
 }
 
-/* BACKGROUND LAYER */
+/* BACKGROUND */
 #bg {
   position: absolute;
   inset: 0;
   background:
-    url("https://i.imgur.com/0Q9Q0Q0.jpg") center/cover no-repeat,
+    url("./assets/bg.jpg") center/cover no-repeat,
     radial-gradient(circle at top, #1b0033, #050014);
-  filter: brightness(0.8);
+  filter: brightness(0.85);
 }
 
 /* PETALS */
 .petal {
   position: absolute;
-  width: 16px;
-  height: 16px;
-  background: url("https://i.imgur.com/Rm0KX5E.png") center/contain no-repeat;
+  width: 18px;
+  height: 18px;
+  background: url("./assets/petal.png") center/contain no-repeat;
   animation: fall linear infinite;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 @keyframes fall {
@@ -46,17 +46,17 @@ body {
   position: absolute;
   inset: 12px;
   border: 3px solid #66f2ff;
-  box-shadow: 0 0 30px rgba(102,242,255,0.8);
+  box-shadow: 0 0 35px rgba(102,242,255,0.9);
   pointer-events: none;
 }
 
-/* HUD PANEL */
+/* HUD */
 #hud {
   position: absolute;
   inset: 40px;
   background: rgba(5,10,30,0.55);
   border: 1px solid #66f2ff;
-  box-shadow: 0 0 25px rgba(102,242,255,0.5);
+  box-shadow: 0 0 30px rgba(102,242,255,0.6);
   padding: 28px;
 }
 
@@ -68,14 +68,14 @@ body {
   text-shadow: 0 0 10px #66f2ff;
 }
 
-/* GLITCH PULSE */
+/* GLOW */
 .glow {
   animation: glow 2s ease-in-out infinite;
 }
 
 @keyframes glow {
   0%,100% { text-shadow: 0 0 8px #66f2ff; }
-  50%     { text-shadow: 0 0 20px #ff9de2; }
+  50%     { text-shadow: 0 0 22px #ff9de2; }
 }
 
 .line { margin-top: 14px; }
@@ -87,9 +87,8 @@ body {
 
 <div id="bg"></div>
 
-<!-- falling petals -->
 <script>
-for(let i=0;i<30;i++){
+for(let i=0;i<35;i++){
   let p=document.createElement("div");
   p.className="petal";
   p.style.left=Math.random()*900+"px";
