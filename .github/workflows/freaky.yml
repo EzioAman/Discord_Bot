@@ -1,52 +1,23 @@
 name: Freaky Automation
 
 on:
-  schedule:
-    - cron: "0 * * * *"      # Every hour HYPE
-    - cron: "30 6 * * *"     # 12:00 IST RULES
-    - cron: "30 11 * * *"    # 17:00 IST STAFF
   workflow_dispatch:
 
 jobs:
-
-  hype:
-    if: github.event_name != 'schedule' || github.event.schedule == '0 * * * *'
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - run: pip install requests
-      - env:
-          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-          MODE: HYPE
-        run: python main.py
 
-  rules:
-    if: github.event_name != 'schedule' || github.event.schedule == '30 6 * * *'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install requests
-      - env:
-          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-          MODE: RULES
-        run: python main.py
 
-  staff:
-    if: github.event_name != 'schedule' || github.event.schedule == '30 11 * * *'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - run: pip install requests
-      - env:
+      - name: Install deps
+        run: pip install requests
+
+      - name: Run bot
+        env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-          MODE: STAFF
         run: python main.py
