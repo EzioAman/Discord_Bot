@@ -1,14 +1,15 @@
 import os
-import subprocess
 import requests
 
 WEBHOOK = os.getenv("WEBHOOK_URL")
+GIF_PATH = "ui/assets/test.gif"
 
-gif_path = subprocess.check_output(["python", "ui/render.py"]).decode().strip()
-
-with open(gif_path, "rb") as f:
-    requests.post(
+with open(GIF_PATH, "rb") as f:
+    r = requests.post(
         WEBHOOK,
-        files={"file": ("freaky_hud.gif", f)},
+        files={"file": ("test.gif", f)},
         data={"content": "🧠 **FREAKY SYSTEM ONLINE**"}
     )
+
+if r.status_code not in (200, 204):
+    print("Failed:", r.text)
