@@ -9,54 +9,46 @@ def send(payload):
 def control_panel():
 
     embed = {
-        "title": "🔷 FREAKY NATION — GAMER HUB",
+        "title": "⚡ FREAKY NATION — COMMAND CENTER",
         "description": (
             "```ansi\n"
+            "\u001b[1;34m[ SYSTEM ONLINE ]\u001b[0m\n"
             "\u001b[1;36mWELCOME TO THE BATTLEFIELD\u001b[0m\n"
             "```\n"
-            "**━━━━━━━━━━━━━━━━━━━━━━**\n\n"
-            "👑 **SERVER OWNER**\n"
-            "> **freaky Pookie**\n\n"
+            "━━━━━━━━━━━━━━━━━━━━━━\n\n"
+
+            "👑 **COMMANDER**\n"
+            "▸ **freaky Pookie**\n\n"
+
             "🛡️ **ADMIN CORE**\n"
-            "> Depressed Admin\n\n"
+            "▸ Depressed Admin\n\n"
+
             "⚔️ **ELITE OPERATORS**\n"
-            "> Depressed freak\n\n"
-            "**━━━━━━━━━━━━━━━━━━━━━━**\n"
-            "🎮 *Hardcore Gamer • Anime • Freaky*\n\n"
-            "🟦 **SYSTEM STATUS:** `ONLINE`"
+            "▸ Depressed freak\n\n"
+
+            "━━━━━━━━━━━━━━━━━━━━━━\n"
+            "🎮 **MODE:** Hardcore Gamer\n"
+            "🧠 **STYLE:** Anime / Freak\n"
+            "🟦 **STATUS:** `LIVE`"
         ),
-        "color": 0x00C8FF,
+        "color": 0x00BFFF,
         "footer": {
-            "text": "FREAKY SYSTEM — LIVE CONTROL"
+            "text": "FREAKY SYSTEM — REALTIME CONTROL INTERFACE"
         }
     }
 
     payload = {
         "username": "FREAKY SYSTEM",
-        "avatar_url": "https://cdn.discordapp.com/attachments/1137710049365461033/1210223244771586048/freaky_core.png",
+        "avatar_url": "https://i.imgur.com/8Km9tLL.png",
         "embeds": [embed],
         "components": [
             {
                 "type": 1,
                 "components": [
-                    {
-                        "type": 2,
-                        "label": "📜 RULEBOOK",
-                        "style": 1,
-                        "custom_id": "rules"
-                    },
-                    {
-                        "type": 2,
-                        "label": "🔥 ENTER ARENA",
-                        "style": 3,
-                        "custom_id": "join"
-                    },
-                    {
-                        "type": 2,
-                        "label": "🎯 START MISSION",
-                        "style": 2,
-                        "custom_id": "mission"
-                    }
+                    {"type": 2, "label": "🎯 START MISSION", "style": 3, "custom_id": "start"},
+                    {"type": 2, "label": "📜 RULEBOOK", "style": 1, "custom_id": "rules"},
+                    {"type": 2, "label": "🧬 PLAYER STATS", "style": 2, "custom_id": "stats"},
+                    {"type": 2, "label": "🔥 JOIN BATTLE", "style": 4, "custom_id": "join"}
                 ]
             }
         ]
