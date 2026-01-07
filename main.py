@@ -1,52 +1,64 @@
-name: Freaky Automation
+import os
+import requests
+from datetime import datetime
 
-on:
-  schedule:
-    - cron: "0 * * * *"      # Every hour HYPE
-    - cron: "30 6 * * *"     # 12:00 IST RULES
-    - cron: "30 11 * * *"    # 17:00 IST STAFF
-  workflow_dispatch:
+WEBHOOK = os.getenv("WEBHOOK_URL")
+MODE = os.getenv("MODE", "HYPE")
 
-jobs:
+now = datetime.now().strftime("%A %I:%M %p")
 
-  hype:
-    if: github.event_name != 'schedule' || github.event.schedule == '0 * * * *'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - run: pip install requests
-      - env:
-          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-          MODE: HYPE
-        run: python main.py
+def send(payload):
+    r = requests.post(WEBHOOK, json=payload)
+    if r.status_code not in (200, 204):
+        print("Failed:", r.text)
 
-  rules:
-    if: github.event_name != 'schedule' || github.event.schedule == '30 6 * * *'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - run: pip install requests
-      - env:
-          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-          MODE: RULES
-        run: python main.py
+# ================== CONTENT ==================
 
-  staff:
-    if: github.event_name != 'schedule' || github.event.schedule == '30 11 * * *'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - run: pip install requests
-      - env:
-          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-          MODE: STAFF
-        run: python main.py
+if MODE == "HYPE":
+    embed = {
+        "title": "🔥 FREAKY NATION HYPE",
+        "description": f"**{now}** — Drop your best clip. Only **FREAKY**.",
+        "color": 0x00FFFF
+    }
+
+elif MODE == "RULES":
+    embed = {
+        "title": "📜 FREAKY RULEBOOK",
+        "description": (
+            "🎮 **Play hard. Respect harder.**\n\n"
+            "• No toxicity\n"
+            "• No spam\n"
+            "• Respect staff\n"
+            "• Post only peak clips\n"
+            "• No leaks / NSFW\n\n"
+            "🌀 *Stay freaky. Stay legendary.*"
+        ),
+        "color": 0x00FFFF
+    }
+
+elif MODE == "STAFF":
+    embed = {
+        "title": "👑 FREAKY COMMAND CENTER",
+        "description": (
+            "**Server Owner:** freaky Pookie\n\n"
+            "**Admins:** Depressed Admin\n\n"
+            "**Elite Members:** Depressed freak\n\n"
+            "⚡ *These legends keep Freaky Nation alive.*"
+        ),
+        "color": 0x00FFFF
+    }
+
+else:
+    embed = {
+        "title": "⚠️ Unknown Mode",
+        "description": MODE,
+        "color": 0xFF0000
+    }
+
+payload = {
+    "username": "FREAKY FEED",
+    "avatar_url": "https://i.imgur.com/7YQ8F4G.png",
+    "embeds": [embed]
+}
+
+send(payload)
