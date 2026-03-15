@@ -106,7 +106,7 @@ The bot will connect to Discord and begin listening for commands.
 
 ## Author
 
-**Aman**
+**Aman Sinha**
 GitHub: https://github.com/EzioAman
 
 ---
