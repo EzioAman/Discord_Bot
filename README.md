@@ -1,31 +1,118 @@
-# 🚀 Freaky Nation Discord Automation Bot
+<div align="center">
 
-A 24×7 cloud-hosted automation system that keeps your Discord server alive with
-scheduled hype, daily challenges, and community momentum — no PC required.
+# 🤖 Discord Automation Bot
 
----
+A lightweight **Python-based Discord bot** designed to automate server tasks, process user commands, and handle real-time events using the **Discord API**.
 
-## ✨ Features
-
-- 🔥 Automated daily & hourly server messages  
-- 🧠 Ready for AI-generated content  
-- ☁️ Runs 24×7 in the cloud (Railway hosting)  
-- 🪝 Uses Discord Webhooks (no bot permissions needed)  
-- ⚙️ Simple setup — deploy in minutes  
+</div>
 
 ---
 
-## 🧱 Architecture
+## Overview
 
+The **Discord Automation Bot** is a backend application that connects to Discord servers and listens for real-time events such as messages and commands.
+It processes these events and performs automated actions based on predefined logic.
 
-Your server stays active even while you sleep.
+This project demonstrates practical use of **API integration, event-driven programming, and modular backend architecture**.
 
 ---
 
-## 🛠️ Setup
+## Features
 
-### 1️⃣ Clone the repository
+* Real-time message and command handling
+* Discord API integration
+* Automated responses and server utilities
+* Modular and extendable architecture
+* Lightweight and efficient runtime
 
-```bash
+---
+
+## Technology Stack
+
+| Technology                | Purpose                                |
+| ------------------------- | -------------------------------------- |
+| Python                    | Core programming language              |
+| discord.py                | Discord API wrapper                    |
+| Discord API               | Communication with Discord services    |
+| Event-driven architecture | Real-time command and event processing |
+
+---
+
+## System Workflow
+
+1. The bot authenticates using a **Discord Bot Token**.
+2. It connects to the **Discord Gateway API**.
+3. The bot listens for server events such as messages or commands.
+4. Incoming commands are processed by the command handler.
+5. The bot executes the appropriate action and returns a response.
+
+---
+
+## Project Structure
+
+```
+Discord_Bot/
+│
+├── bot.py
+├── commands/
+├── config/
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## Installation
+
+### Clone the Repository
+
+```
 git clone https://github.com/EzioAman/Discord_Bot.git
 cd Discord_Bot
+```
+
+### Install Dependencies
+
+```
+pip install -r requirements.txt
+```
+
+### Configure Bot Token
+
+Add your Discord bot token in the configuration file or environment variable.
+
+```
+TOKEN=your_discord_bot_token
+```
+
+### Run the Bot
+
+```
+python bot.py
+```
+
+The bot will connect to Discord and begin listening for commands.
+
+---
+
+## Future Improvements
+
+* Slash command support
+* Web dashboard for configuration
+* Database integration
+* Logging and analytics system
+
+---
+
+## Author
+
+**Aman**
+GitHub: https://github.com/EzioAman
+
+---
+
+<div align="center">
+
+⭐ If you find this project useful, consider starring the repository.
+
+</div>
